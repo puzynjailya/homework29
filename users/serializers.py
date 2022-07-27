@@ -13,6 +13,19 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = "__all__"
+
+
+class UserRetrieveSerialiazer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = "__all__"
+
+
+
 class UserCreateSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     password = serializers.CharField(required=False)
@@ -39,3 +52,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
             user.location.add(location_obj)
             user.save()
         return user
+
+class UserDestroySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id"]
+
