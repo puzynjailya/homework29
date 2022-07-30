@@ -5,6 +5,8 @@ from rest_framework import serializers
 
 from users.models import Location
 
+User = get_user_model()
+
 
 class LocationSerializer(serializers.ModelSerializer):
 
@@ -15,20 +17,18 @@ class LocationSerializer(serializers.ModelSerializer):
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = "__all__"
 
 
 class UserRetrieveSerialiazer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = "__all__"
 
 
-
 class UserCreateSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-    password = serializers.CharField(required=False)
+
     location = serializers.SlugRelatedField(
         many=True,
         slug_field="name",
@@ -37,12 +37,20 @@ class UserCreateSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = '__all__'
 
     def is_valid(self, **kwargs):
         self._location = self.initial_data.pop('location')
         return super().is_valid(raise_exception=raise_exception)
+
+    def create(self, validated_data):
+        user = User.objects.create(**validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+
+        return user
+
 
     def save(self, **kwargs):
         user = super().save()

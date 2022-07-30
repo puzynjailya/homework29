@@ -7,7 +7,9 @@ from users.models import User
 
 class Advertisement(models.Model):
     name = models.CharField(max_length=150, null=True, blank=False)
-    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, to_field='id', on_delete=models.CASCADE, name='author')
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                               to_field='id',
+                               on_delete=models.CASCADE)
     price = models.IntegerField(null=True, blank=False)
     description = models.CharField(max_length=3000, null=True, blank=True)
     is_published = models.BooleanField(default=False)
