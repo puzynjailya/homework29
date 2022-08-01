@@ -32,6 +32,7 @@ urlpatterns = [
     path('cat/', include('categories.urls')),
     path('user/', include('users.urls')),
     path("", include(location_router.urls)),
+    path('selection/', include('selections.urls'))
 ]
 
 if settings.DEBUG:

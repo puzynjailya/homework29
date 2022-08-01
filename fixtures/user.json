@@ -146,7 +146,7 @@
             "role": "member",
             "age": 35,
             "location_id": 6,
-            " is_superuser": "false"
+            "is_superuser": "false"
         }
     }
 ]

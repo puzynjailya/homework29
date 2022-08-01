@@ -9,7 +9,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, UpdateView
 from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView
-
+from rest_framework.permissions import IsAuthenticated
 
 from advertisements.models import Advertisement
 from advertisements.serializers import *
@@ -22,7 +22,6 @@ class IndexView(View):
         return JsonResponse({'status': 'ok'}, status=200)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class AdsListView(ListAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementListSerializer
@@ -64,10 +63,10 @@ class AdsListView(ListAPIView):
         return super().get(request, *args, **kwargs)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class AdEntityView(RetrieveAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementDetailSerializer
+    permission_classes = [IsAuthenticated]
 
 
 @method_decorator(csrf_exempt, name='dispatch')

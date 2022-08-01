@@ -7,9 +7,7 @@ from django.views.generic import UpdateView
 from rest_framework import generics, viewsets
 from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView
 
-from ads import settings
-from advertisements.models import Advertisement
-from users.models import User, Location
+from users.models import Location
 from users.serializers import UserCreateSerializer, LocationSerializer, UserListSerializer, UserDestroySerializer
 
 
