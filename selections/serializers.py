@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from advertisements.models import Advertisement
+from advertisements.serializers import AdvertisementListSerializer
 from selections.models import Selection
 User = get_user_model()
 
@@ -15,6 +16,7 @@ class SelectionListSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
 
 class SelectionEntitySerializer(serializers.ModelSerializer):
+    items = AdvertisementListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Selection
@@ -33,22 +35,30 @@ class SelectionCreateSerializer(serializers.ModelSerializer):
         model = Selection
         fields = "__all__"
 
-    def is_valid(self, **kwargs):
-        self._selection = self.initial_data.pop('items')
-        return super().is_valid(raise_exception=raise_exception)
 
     def create(self, validated_data):
-        selection = Selection.objects.get(**validated_data)
-        selection.save()
-        return selection
-
-    def save(self, **kwargs):
-        selection = super().save()
-        for ad_id in self._selection:
-            ad_obj, created = Advertisement.objects.get_or_create(id=int(ad_id))
-            selection.items.add(ad_obj)
+        data = validated_data.pop('items')
+        selection = Selection.objects.create(**validated_data)
+        for advertisement in data:
+            selection.items.add(advertisement)
             selection.save()
         return selection
+
+    def update(self, instance, validated_data):
+
+        items_data = validated_data.pop('items')
+        instance.items.clear()
+
+        instance.items.set(items_data)
+
+        fields = ["owner", "name"]
+        for field in fields:
+            try:
+                setattr(instance, field, validated_data[field])
+                instance.save()
+            except KeyError as e:
+                print(e)
+        return instance
 
 
 class SelectionDestroySerializer(serializers.ModelSerializer):
