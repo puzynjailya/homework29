@@ -1,19 +1,14 @@
-import json
-
-from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView, UpdateView
-from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView
+from django.views.generic import UpdateView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from advertisements.models import Advertisement
 from advertisements.serializers import *
-from categories.models import Category
+from users.permissions import AdvertisementPermission
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -69,77 +64,22 @@ class AdEntityView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class AdCreateView(CreateView):
-    model = Advertisement
-    fields = ["name", "author_id", "price", "description", "category_id"]
-
-    def post(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-
-        author = get_object_or_404(get_user_model(), pk=data.get('author_id'))
-        category = get_object_or_404(Category, pk=data.get('category_id'))
-
-        ad = Advertisement.objects.create(
-            name=data.get('name'),
-            author=author,
-            price=data.get('price'),
-            description=data.get('description'),
-            category=category,
-            is_published=data.get('is_published')
-        )
-
-        ad.save()
-
-        response = {'id': ad.id,
-                    'name': ad.name,
-                    'author_id': ad.author.id,
-                    'author': ad.author.first_name,
-                    'price': ad.price,
-                    'description': ad.description,
-                    'is_published': ad.is_published,
-                    'category_id': ad.category_id,
-                    'image': ad.image.url if ad.image else None
-                    }
-
-        return JsonResponse(response, status=200)
+class AdCreateView(CreateAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertismentCreateUpdateSerializer
+    permission_classes = [IsAuthenticated, AdvertisementPermission]
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class AdUpdateView(UpdateView):
-    model = Advertisement
-    fields = ("name", "author", "price", "description", "category")
-
-    def patch(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-
-        data = json.loads(request.body)
-
-        self.object.name = data.get('name')
-        self.object.author = get_object_or_404(get_user_model(), pk=data.get('author_id'))
-        self.object.price = data.get('price')
-        self.object.description = data.get('description')
-        self.object.category= get_object_or_404(Category, pk=data.get('category_id'))
-
-        self.object.save()
-
-        response = {'id': self.object.id,
-                    'name': self.object.name,
-                    'author_id': self.object.author.id,
-                    'author': self.object.author.first_name,
-                    'price': self.object.price,
-                    'description': self.object.description,
-                    'is_published': self.object.is_published,
-                    'category_id': self.object.category.id,
-                    "category_name": self.object.category.name,
-                    'image': self.object.image.url if self.object.image else None
-                    }
-        return JsonResponse(response, status=200)
+class AdUpdateView(UpdateAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertismentCreateUpdateSerializer
+    permission_classes = [IsAuthenticated, AdvertisementPermission]
 
 
 class AdDeleteView(DestroyAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementDestroySerializer
+    permission_classes = [IsAuthenticated, AdvertisementPermission]
 
 
 @method_decorator(csrf_exempt, name='dispatch')
