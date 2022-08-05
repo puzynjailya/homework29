@@ -17,11 +17,11 @@ class AdvertisementDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AdvertismentCreateUpdateSerializer(serializers.ModelSerializer):
-    author_id = serializers.PrimaryKeyRelatedField(
+class AdvertisementCreateSerializer(serializers.ModelSerializer):
+author = serializers.RelatedField(
         many=False,
         read_only=True)
-    category_id = serializers.PrimaryKeyRelatedField(
+    category = serializers.RelatedField(
         many=False,
         read_only=True)
 
@@ -29,20 +29,32 @@ class AdvertismentCreateUpdateSerializer(serializers.ModelSerializer):
         model = Advertisement
         exclude = ["id", "image"]
 
-    def create(self, validated_data):
-        author = validated_data.pop("author")
-        category = validated_data.pop("category")
+    def is_valid(self, raise_exception=False):
+        self._author = self.initial_data.get("author_id")
+        self._category = self.initial_data.get("category_id")
+        super().is_valid(raise_exception=raise_exception)
 
+    def create(self, validated_data):
         advertisement = Advertisement.objects.create(**validated_data)
 
-        author_obj, _ = get_user_model().objects.get_or_404(id=author.id)
+        author_obj, _ = get_user_model().objects.get_or_404(id=self._author)
         advertisement.author.add(author_obj)
 
-        category_obj, _ = Category.objects.get_or_404(id=category.id)
+        category_obj, _ = Category.objects.get_or_404(id=self._category)
         advertisement.category.add(category_obj)
-
         advertisement.save()
+
         return advertisement
+
+
+class AdvertisementUpdateSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(
+        many=False,
+        read_only=True)
+
+    class Meta:
+        model = Advertisement
+        exclude = ["id", "image"]
 
     def update(self, instance, validated_data):
 
@@ -58,6 +70,8 @@ class AdvertismentCreateUpdateSerializer(serializers.ModelSerializer):
                 print(e)
 
         return instance
+
+
 
 
 class AdvertisementDestroySerializer(serializers.ModelSerializer):
