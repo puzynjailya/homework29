@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from advertisements.models import Advertisement
@@ -18,30 +20,37 @@ class AdvertisementDetailSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
-author = serializers.RelatedField(
+    author = serializers.PrimaryKeyRelatedField(
         many=False,
-        read_only=True)
-    category = serializers.RelatedField(
+        queryset=get_user_model().objects.all())
+    category = serializers.PrimaryKeyRelatedField(
         many=False,
-        read_only=True)
+        queryset=Category.objects.all())
 
     class Meta:
         model = Advertisement
         exclude = ["id", "image"]
 
     def is_valid(self, raise_exception=False):
-        self._author = self.initial_data.get("author_id")
-        self._category = self.initial_data.get("category_id")
+        self._author = self.initial_data.get("author")
+        self._category = self.initial_data.get("category")
         super().is_valid(raise_exception=raise_exception)
 
     def create(self, validated_data):
         advertisement = Advertisement.objects.create(**validated_data)
 
-        author_obj, _ = get_user_model().objects.get_or_404(id=self._author)
-        advertisement.author.add(author_obj)
+        try:
+            category_obj = Category.objects.get(id=self._category)
+            advertisement.category_id = category_obj.id
+        except Category.DoesNotExist:
+            raise Http404("Given query not found....")
 
-        category_obj, _ = Category.objects.get_or_404(id=self._category)
-        advertisement.category.add(category_obj)
+        try:
+            author_obj = get_user_model().objects.get(id=self._author)
+            advertisement.author_id = author_obj.id
+        except get_user_model().DoesNotExist:
+            raise Http404("Given query not found....")
+
         advertisement.save()
 
         return advertisement
