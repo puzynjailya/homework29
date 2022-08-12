@@ -10,8 +10,10 @@
             "password": "gZvptL",
             "role": "member",
             "age": 21,
-            "location_id": 1,
-            " is_superuser": "false"
+            "location": [1,2],
+            "is_superuser": "False",
+            "email": "pnikifirov@mail.ru",
+            "birth_date": "2002-01-01"
         }
     },
     {
@@ -25,8 +27,10 @@
             "password": "4fVqL2",
             "role": "moderator",
             "age": 24,
-            "location_id": 3,
-            " is_superuser": "false"
+            "location": [3,2],
+            "is_superuser": "False",
+            "email": "abiba_1341@google.com",
+            "birth_date": "1998-01-01"
         }
     },
     {
@@ -40,8 +44,10 @@
             "password": "o535pj",
             "role": "admin",
             "age": 29,
-            "location_id": 8,
-            " is_superuser": "false"
+            "location": [8,2],
+            "is_superuser": "False",
+            "email": " vanya777@yahoo.com",
+            "birth_date": "1992-03-03"
         }
     },
     {
@@ -55,8 +61,10 @@
             "password": "d49rSO",
             "role": "moderator",
             "age": 19,
-            "location_id": 10,
-            " is_superuser": "false"
+            "location": [10,2],
+            "is_superuser": "False",
+            "email": "orlanfree@rumbler.ru",
+            "birth_date": "2004-04-04"
         }
     },
     {
@@ -70,8 +78,10 @@
             "password": "wCqlVE",
             "role": "member",
             "age": 41,
-            "location_id": 2,
-            " is_superuser": "false"
+            "location": [2,2],
+            "is_superuser": "False",
+            "email": "galina@tumbler.ru",
+            "birth_date": "1981-04-05"
         }
     },
     {
@@ -85,8 +95,10 @@
             "password": "xuR2jf",
             "role": "member",
             "age": 37,
-            "location_id": 4,
-            " is_superuser": "false"
+            "location": [4,2],
+            "is_superuser": "False",
+            "email": "petrboy@gmail.com",
+            "birth_date": "1985-03-04"
         }
     },
     {
@@ -100,8 +112,10 @@
             "password": "gzP4vR",
             "role": "member",
             "age": 26,
-            "location_id": 7,
-            " is_superuser": "false"
+            "location": [7,2],
+            "is_superuser": "False",
+            "email": "nikitapro@sky.pro",
+            "birth_date": "2006-06-07"
         }
     },
     {
@@ -115,8 +129,10 @@
             "password": "zo0rj6",
             "role": "member",
             "age": 24,
-            "location_id": 5,
-            " is_superuser": "false"
+            "location": [5,2],
+            "is_superuser": "False",
+            "email": "riverna@sky.pro",
+            "birth_date": "1998-05-25"
         }
     },
     {
@@ -130,8 +146,10 @@
             "password": "daMocL",
             "role": "moderator",
             "age": 22,
-            "location_id": 9,
-            " is_superuser": "false"
+            "location": [9],
+            "is_superuser": "False",
+            "email": "gulnara@gulnara.gu",
+            "birth_date": "2000-02-02"
         }
     },
     {
@@ -145,8 +163,10 @@
             "password": "sasha123456",
             "role": "member",
             "age": 35,
-            "location_id": 6,
-            "is_superuser": "false"
+            "location": [6],
+            "is_superuser": "False",
+            "email": "dragonfruit@bali.in",
+            "birth_date": "1985-07-06"
         }
     }
 ]

@@ -1,11 +1,11 @@
-id,first_name,last_name,username,password,role,age,location_id, is_superuser
-11,Павел,Никифоров,pnikifirov,gZvptL,member,21,1,false
-2,Альбина,Игнатьева,abiba_1341,4fVqL2,moderator,24,3,false
-3,Иван,Сысоев,vanya777,o535pj,admin,29,8,false
-4,Марина,Беркутова,orlanfree,d49rSO,moderator,19,10,false
-5,Галина,Иванова,galina_ivanova,wCqlVE,member,41,2,false
-6,Петр,Бойченко,petr_bo,xuR2jf,member,37,4,false
-7,Никита,ВездеПобрито,nikitapro,gzP4vR,member,26,7,false
-8,Виолетта,Петушок,riverna,zo0rj6,member,24,5,false
-9,Гульнара,Ибрагимова,gulnara321,daMocL,moderator,22,9,false
-10,Борис,Зайка,dragon84,sasha123456,member,35,6,false
+id,first_name,last_name,username,password,role,age,location_id,is_superuser,email,birth_date
+11,Павел,Никифоров,pnikifirov,gZvptL,member,21,1,false,pnikifirov@mail.ru,2002-01-01
+2,Альбина,Игнатьева,abiba_1341,4fVqL2,moderator,24,3,false,abiba_1341@google.com,1998-01-01
+3,Иван,Сысоев,vanya777,o535pj,admin,29,8,false, vanya777@yahoo.com,1992-03-03
+4,Марина,Беркутова,orlanfree,d49rSO,moderator,19,10,false,orlanfree@rumbler.ru,2004-04-04
+5,Галина,Иванова,galina_ivanova,wCqlVE,member,41,2,false,galina@tumbler.ru,1981-04-05
+6,Петр,Бойченко,petr_bo,xuR2jf,member,37,4,false,petrboy@gmail.com,1985-03-04
+7,Никита,ВездеПобрито,nikitapro,gzP4vR,member,26,7,false,nikitapro@sky.pro,2006-06-07
+8,Виолетта,Петушок,riverna,zo0rj6,member,24,5,false,riverna@sky.pro,1998-05-25
+9,Гульнара,Ибрагимова,gulnara321,daMocL,moderator,22,9,false,gulnara@gulnara.gu,2000-02-02
+10,Борис,Зайка,dragon84,sasha123456,member,35,6,false,dragonfruit@bali.in,1985-07-06

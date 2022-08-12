@@ -26,6 +26,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(
         many=False,
         queryset=Category.objects.all())
+    is_published = serializers.BooleanField(required=False)
 
     class Meta:
         model = Advertisement

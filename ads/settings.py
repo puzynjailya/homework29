@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'ads.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ads_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'new_ads_db',
+        'USER': 'useruser',
+        'PASSWORD': 'QWERTYasdfghZXCVB',
         'HOST': 'localhost',
         'PORT': '5432'
     }

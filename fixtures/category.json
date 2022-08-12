@@ -4,7 +4,8 @@
         "model": "categories.category",
         "fields": {
             "id": 1,
-            "name": "Котики"
+            "name": "Котики",
+            "slug": "kotiki"
         }
     },
     {
@@ -12,7 +13,8 @@
         "model": "categories.category",
         "fields": {
             "id": 2,
-            "name": "Песики"
+            "name": "Песики",
+            "slug": "pesiki"
         }
     },
     {
@@ -20,7 +22,8 @@
         "model": "categories.category",
         "fields": {
             "id": 3,
-            "name": "Книги"
+            "name": "Книги",
+            "slug": "knigi"
         }
     },
     {
@@ -28,7 +31,8 @@
         "model": "categories.category",
         "fields": {
             "id": 4,
-            "name": "Растения"
+            "name": "Растения",
+            "slug": "rasteniya"
         }
     },
     {
@@ -36,7 +40,8 @@
         "model": "categories.category",
         "fields": {
             "id": 5,
-            "name": "Мебель и интерьер"
+            "name": "Мебель и интерьер",
+            "slug": "interior"
         }
     }
 ]
